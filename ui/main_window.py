@@ -1,6 +1,6 @@
 import os
 from PySide6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QLabel, 
+    QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, 
     QPushButton, QFileDialog, QProgressBar, QTextEdit, QHBoxLayout
 )
 from PySide6.QtCore import Qt, QTimer
