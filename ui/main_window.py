@@ -80,6 +80,7 @@ class MainWindow(QMainWindow):
         
         self.settings_btn = QPushButton("⚙️ Configuración")
         self.settings_btn.setFixedWidth(150)
+        self.settings_btn.clicked.connect(self.open_settings)
         
         header_layout.addWidget(self.title_label)
         header_layout.addStretch()
@@ -120,6 +121,8 @@ class MainWindow(QMainWindow):
         self.save_srt_btn = QPushButton("🎬 Guardar SRT")
         self.save_txt_btn.hide()
         self.save_srt_btn.hide()
+        self.save_txt_btn.clicked.connect(self.save_txt)
+        self.save_srt_btn.clicked.connect(self.save_srt)
         
         self.btn_layout.addStretch()
         self.btn_layout.addWidget(self.save_txt_btn)
@@ -184,3 +187,36 @@ class MainWindow(QMainWindow):
         self.result_text.setText(error_msg)
         self.drop_zone.setEnabled(True)
         self.progress_bar.hide()
+
+    def open_settings(self):
+        from ui.settings_dialog import SettingsDialog
+        dialog = SettingsDialog(self.config, self)
+        if dialog.exec():
+            self.status_label.setText("Configuración guardada. Se aplicará en la próxima transcripción.")
+
+    def save_txt(self):
+        if not self.current_result: return
+        file_path, _ = QFileDialog.getSaveFileName(self, "Guardar TXT", "", "Text Files (*.txt)")
+        if file_path:
+            full_text = "\n".join([seg["text"] for seg in self.current_result["segments"]])
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(full_text)
+            self.status_label.setText("Archivo TXT guardado exitosamente.")
+
+    def save_srt(self):
+        if not self.current_result: return
+        file_path, _ = QFileDialog.getSaveFileName(self, "Guardar SRT", "", "Subtitles (*.srt)")
+        if file_path:
+            with open(file_path, "w", encoding="utf-8") as f:
+                for i, seg in enumerate(self.current_result["segments"], 1):
+                    start = self._format_time(seg["start"])
+                    end = self._format_time(seg["end"])
+                    f.write(f"{i}\n{start} --> {end}\n{seg['text']}\n\n")
+            self.status_label.setText("Archivo SRT guardado exitosamente.")
+
+    def _format_time(self, seconds):
+        hours = int(seconds // 3600)
+        minutes = int((seconds % 3600) // 60)
+        secs = int(seconds % 60)
+        msecs = int((seconds - int(seconds)) * 1000)
+        return f"{hours:02d}:{minutes:02d}:{secs:02d},{msecs:03d}"
