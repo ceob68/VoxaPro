@@ -1,0 +1,77 @@
+/* Voxa Pro Premium Enterprise Theme */
+QMainWindow {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                stop:0 #0F0C29, stop:0.5 #302B63, stop:1 #24243E);
+}
+
+QWidget#mainContainer {
+    background-color: rgba(20, 20, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+QLabel {
+    color: #FFFFFF;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop:0 #8E2DE2, stop:1 #4A00E0);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop:0 #9b42e6, stop:1 #5b15e3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+QPushButton:pressed {
+    background: #4A00E0;
+}
+
+QProgressBar {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop:0 #00c6ff, stop:1 #0072ff);
+    border-radius: 4px;
+}
+
+QTextEdit {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #E0E0E0;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* ScrollBar customization */
+QScrollBar:vertical {
+    border: none;
+    background: rgba(0, 0, 0, 0.2);
+    width: 10px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(255, 255, 255, 0.2);
+    min-height: 20px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
